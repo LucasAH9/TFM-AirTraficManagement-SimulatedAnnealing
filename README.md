@@ -34,6 +34,7 @@ La base del código del simulador y la metaheurística está organizada de la si
     * `Metaheuristica.h` : Implementación de la metaheurística de Recocido Simulado. Incluye las políticas de enfriamiento de temperatura, el criterio de parada y los generadores de entornos para la exploración de maniobras.
     * `AerialSet.cpp` / `AerialSet.h` : Implementación matemática encargada de evaluar las trayectorias e identificar colisiones tanto bajo condiciones estándar (cono de exclusión por pendientes tangenciales) como patológicas (con rotación de ejes).
     * `Aircraft.h` / `simulador_data.h`: Define las variables de las aeronaves / Define las variables de estado por instante de tiempo ($id_i, x_i, y_i, z_i, v_i, alpha_i$) y sus restricciones físicas operacionales ($vMin, vMax, zMin, zMax$, etc.).
+    * * `GraficosGenerator,py` : Genera una imagen con las gráficas de rendimiento de una ejecución del Recocido Simulado. A utilizar solo en Escenarios 1 y 2. Requiere de descomentar la sección de código correspondiente a la escritura en csv dentro de Metaheuristica.h
 
 Los escenarios de validacion que incluyen conflictos frontales, colisiones diagonales y simulaciones con diferentes densidades de tráfico (bajo, medio, alto y situaciones de colapso) se incluyen en el archivo principal como métodos diferentes. Para su ejecucion basta con comentar/descomentar en Main() el método seleccionado.
 
