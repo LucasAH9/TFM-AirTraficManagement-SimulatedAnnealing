@@ -3,7 +3,7 @@
 
 Este repositorio contiene la implementación técnica del **Trabajo Fin de Máster (TFM)** para el **Máster en Ciencia de Datos** de la **Universidad Politécnica de Madrid (UPM)**. El proyecto aborda la detección y resolución automatizada de conflictos en el espacio aéreo bajo el paradigma de *Free Flight* (Vuelo Libre).
 
-## 👥 Autor y Tutores
+##  Autor y Tutor
 * **Autor:** Lucas Andosilla Herráiz
 * **Tutor:** Antonio Jiménez Martín
 * **Institución:** Escuela Técnica Superior de Ingenieros Informáticos (ETSI Informáticos) - Universidad Politécnica de Madrid
@@ -12,7 +12,7 @@ Este repositorio contiene la implementación técnica del **Trabajo Fin de Mást
 
 ---
 
-## 📝 Resumen del Proyecto
+##  Resumen del Proyecto
 La gestión tradicional del tráfico aéreo (ATM) divide el espacio de navegación en sectores estáticos vigilados manualmente. Con la introducción de nuevos paradigmas como el *Free Flight* (Vuelo Libre), las aeronaves adquieren la libertad de seleccionar y modificar sus trayectorias en tiempo real, incrementando drásticamente la complejidad del sistema y haciendo indispensable la automatización de la seguridad.
 
 Este proyecto desarrolla una **metodología dual** en **C++**:
@@ -26,10 +26,10 @@ La evaluación de las soluciones se realiza mediante un enfoque **multi-objetivo
 
 ---
 
-## 📂 Estructura de Archivos del Proyecto
+##  Estructura de Archivos del Proyecto
 La base del código del simulador y la metaheurística está organizada de la siguiente manera:
 
-* `📁 src/` (o directorio raíz de código fuente):
+* `TFM_LucasAndosilla_2026/` (o directorio raíz de código fuente):
     * `TFM_LucasAndosilla_2026.cpp` Archivo principal fuente: Contiene el bucle de eventos de la Simulación de Sucesos Discretos (SSD), la cola cronológica de eventos y la lógica principal del programa.
     * `Metaheuristica.h` : Implementación de la metaheurística de Recocido Simulado. Incluye las políticas de enfriamiento de temperatura, el criterio de parada y los generadores de entornos para la exploración de maniobras.
     * `AerialSet.cpp` / `AerialSet.h` : Implementación matemática encargada de evaluar las trayectorias e identificar colisiones tanto bajo condiciones estándar (cono de exclusión por pendientes tangenciales) como patológicas (con rotación de ejes).
@@ -40,7 +40,7 @@ Los escenarios de validacion que incluyen conflictos frontales, colisiones diago
 
 ---
 
-## 🛠️ Requisitos Tecnológicos
+##  Requisitos Tecnológicos
 * **Compilador:** Compatible con estándar C++11 o superior (ej. `g++`, `clang++` o MSVC). Durante el desarrollo se ha empleado Visual Studio 2022.
 * **Herramientas de construcción:** `CMake` (opcional, recomendado) o compilación directa vía terminal.
 * **Entorno operativo:** Validado en entornos Windows/Linux a través de Git y GitHub Desktop para el control de versiones.
