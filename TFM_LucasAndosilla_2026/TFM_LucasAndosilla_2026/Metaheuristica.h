@@ -172,12 +172,6 @@ public:
             // Guardamos la foto fija de f* para la siguiente etapa y reiniciamos el contador de aceptados
             fitnessAtStageStart = mejorFitness;
             acceptedInCurrentStage = 0;
-            /*
-            if (currentTemperature <0.01) {
-                std::cout << "  [STOP ADAPTATIVO] Criterio 0: temperatura menor de 100 "<< std::endl;
-                return true; // Detiene el while
-            }
-            */
             // --- COMPROBACIÓN DE DETENCIÓN ---
             
             if (stagesNoImprovement >= k1) {
@@ -379,10 +373,6 @@ public:
             float pct = maniobra.valores[0] / 100.0f;
             avion.v = (pct > 0) ? avionOriginal.v + pct * (allowedSpeedVar)
                 : avionOriginal.v + pct * (allowedSpeedVar);
-            /*
-            avion.v = (pct > 0) ? avionOriginal.v + pct * (avionOriginal.vMax - avionOriginal.v)
-                : avionOriginal.v + pct * (avionOriginal.v - avionOriginal.vMin);
-            */
             avion.idManeuvers = 0;
         }
         // [1]: Cambio de Altitud
@@ -390,12 +380,6 @@ public:
             float pct = maniobra.valores[1] / 100.0f;
             avion.z = (pct > 0) ? avionOriginal.z + pct * (allowedHeightVar) + (avion.safetyHeight)
                 : avionOriginal.z + pct * (allowedHeightVar) - (avion.safetyHeight);
-
-            //avion.pitchAngle = pct * avionOriginal.maxAngle; // Mismo límite de giro que el rumbo   ATENCION CAMBIAR POR MAXPITCHANGLE DESPUES
-            /*
-            avion.z = (pct > 0) ? avionOriginal.z + pct * (avionOriginal.zMax - avionOriginal.z)
-                : avionOriginal.z + pct * (avionOriginal.z - avionOriginal.zMin);
-            */
             avion.idManeuvers = 1;
         }
         // [2]: Cambio de Rumbo (Ángulo)
@@ -475,16 +459,12 @@ public:
 
             // 2. Aplicar la maniobra a un avión de prueba para verificar la física
             Aircraft avionCandidato = nuevoAvion;
-            //std::cout << "base values: vel " << avionCandidato.v << ", pitch: " << avionCandidato.pitchAngle << ", angle" << avionCandidato.angle << ", " << std::endl;
             ApplyManeuver(avionCandidato, candidato, avionOriginal);
 
             // 3. Regla 3: Si la maniobra provoca conflicto, se DESCARTA automáticamente
-            //std::cout << "new values:  vel " << avionCandidato.v  << ", pitch: " <<  avionCandidato.pitchAngle << ", angle" << avionCandidato.angle << ", " << std::endl;
             
             if (HayConflictos(avionCandidato, avionesActivos)) {
                 numFailures++;
-               
-                //solucionActual = candidato;
                 continue;
             }
             numSuccess++;
@@ -492,7 +472,6 @@ public:
             testedManeuvers.push_back(candidato);
             // 4. Si es segura, la evaluamos 
             float candidatoFitness = EvaluateFitness(candidato, avionOriginal, avionesActivos, sectorAereo);
-            //std::cout << "Fitness  obtenido: " << candidatoFitness << std::endl;
 
             // 5. Criterio de Aceptación del Recocido Simulado (Metropolis)
             float deltaCosto = candidatoFitness - fitnessActual;
@@ -557,6 +536,7 @@ public:
 
  
         
+        // ESCRITURA EN CSV 
 
         /*
         // Al salir del bucle, volcamos el progreso de forma ultra rápida en un archivo
@@ -610,5 +590,5 @@ public:
     }
 };
 
- // METAHEURISTICA_H
+
  

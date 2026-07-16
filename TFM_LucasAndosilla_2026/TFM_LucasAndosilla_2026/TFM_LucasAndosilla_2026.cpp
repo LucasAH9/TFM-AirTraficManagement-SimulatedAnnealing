@@ -257,7 +257,7 @@ int Simulacion() {
 	double tSim = 0.0;        // Reloj de la simulación
 	int n_aviones_inst = 0;    // Contador de aviones activos en el espacio aéreo
 	double H = 150000;         // Horizonte de simulación 
-	double lambda = 30;    // 1 avion cada 15 secs avg
+	double lambda = 30;    // tasa de llegada, tiempo aleatorio entre 5 y lambda		-------------------------- MODIFICAR TRAFICO
 	int proximoIdVuelo = 1;
 
 	float puntosX[] = { 0.0f, 1000.0f, 1000.0f, 0.0f };
@@ -412,8 +412,9 @@ int Simulacion() {
 	return 0;
 }
 
+// escenario 1
 int MHTest() {
-	// Variables de estado del simulador (camelCase)
+	// Variables de estado del simulador 
 	double tSim = 0.0;        // Reloj de la simulación
 	int nAvionesInst = 0;    // Contador de aviones activos en el espacio aéreo
 	double h = 200;          // Horizonte de simulación lo suficientemente amplio
@@ -424,7 +425,7 @@ int MHTest() {
 	AerialSector* sectorAereo = new AerialSector;
 	initAerialSector(sectorAereo, puntosX, puntosY, 4);
 
-	// Estructuras de datos (camelCase)
+	// Estructuras de datos 
 	vector<Evento> listaEventos;
 	vector<RegistroHistorico> historico;
 	vector<Aircraft> avionesActivos;
@@ -601,6 +602,7 @@ int MHTest() {
 	return 0;
 }
 
+// Escenario 2
 int MHDiagTest() {
 	// Variables de estado del simulador (camelCase)
 	double tSim = 0.0;        // Reloj de la simulación
