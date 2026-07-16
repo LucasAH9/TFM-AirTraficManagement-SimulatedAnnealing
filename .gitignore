@@ -67,3 +67,5 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+/TFM_LucasAndosilla_2026/.vs
+/TFM_LucasAndosilla_2026/TFM_LucasAndosilla_2026/x64/Debug

@@ -120,36 +120,6 @@ Aircraft createRandomAircraft(int id_vuelo, AerialSector* sector) {
 	return nuevoAvion;
 }
 
-/*
-bool HayConflictos(Aircraft& AvionA, const vector<Aircraft>& AvionesActivos) {
-	float HorRisk = 0.0f, VerRisk = 0.0f;
-
-	for (const auto& AvionB : AvionesActivos) {
-		// No compararse consigo mismo
-		if (AvionA.id == AvionB.id) continue;
-
-		// Creamos un AircraftSet temporal para 2 aviones para reutilizar tu getRisk
-		Aircraft Pareja[2] = { AvionA, AvionB };
-		AircraftSet ConjuntoTemporal;
-
-		// initAS calcula internamente las matrices L y G necesarias para el riesgo
-		initAS(&ConjuntoTemporal, Pareja, 2);
-
-		// getRisk(riesgoH, riesgoV, conjunto, indice1, indice2, cambio1, cambio2, man1, man2, costeH/V)
-		// Usamos NM (No Maniobra) y cambios 0.0 porque queremos ver el estado actual
-		getRisk(&HorRisk, &VerRisk, &ConjuntoTemporal, 0, 1, 0.0f, 0.0f, NM, NM);
-
-		// Liberamos la memoria del conjunto temporal (matrices L y G)
-		freeAS(&ConjuntoTemporal);
-
-		// Si hay cualquier riesgo (horizontal o vertical), hay conflicto
-		if (HorRisk > 0.0f || VerRisk > 0.0f) {
-			return true;
-		}
-	}
-	return false;
-}
-*/
 
 bool HayConflictos(Aircraft& avionA, const std::vector<Aircraft>& avionesActivos) {
 	float horRisk = 0.0f;
@@ -191,64 +161,7 @@ bool HayConflictos(Aircraft& avionA, const std::vector<Aircraft>& avionesActivos
 	}
 	return false;
 }
-/*
-void ResolverConflictoAleatorio(Aircraft& Avion, const std::vector<Aircraft>& AvionesActivos) {
-	static std::random_device Rd;
-	static std::mt19937 Gen(Rd());
 
-	// Definimos los rangos de maniobra (1: Velocidad, 2: Altitud, 3: Ángulo)
-	std::uniform_int_distribution<> DisTipo(1, 3);
-	std::uniform_real_distribution<float> DisMag(-1.0f, 1.0f); // -100% a +100% del rango
-
-	const int MaxIntentos = 250000;
-	int Intento = 0;
-	bool Resuelto = false;
-
-	// Guardamos estado original por si hay que revertir
-	float VOriginal = Avion.v;
-	float ZOriginal = Avion.z;
-	float AngOriginal = Avion.angle;
-
-	while (Intento < MaxIntentos && !Resuelto) {
-		int Tipo = DisTipo(Gen);
-		float Magnitud = DisMag(Gen);
-
-		// Aplicamos la maniobra aleatoria
-		switch (Tipo) {
-		case 1: // Velocidad (VC)
-			if (Magnitud > 0) Avion.v = VOriginal + Magnitud * (Avion.vMax - VOriginal);
-			else Avion.v = VOriginal + Magnitud * (VOriginal - Avion.vMin);
-			break;
-		case 2: // Altitud (AC)
-			if (Magnitud > 0) Avion.z = ZOriginal + Magnitud * (Avion.zMax - ZOriginal);
-			else Avion.z = ZOriginal + Magnitud * (ZOriginal - Avion.zMin);
-			break;
-		case 3: // Ángulo/Rumbo (TC)
-			Avion.angle = AngOriginal + (Magnitud * Avion.maxAngle);
-			break;
-		}
-
-		// Comprobamos si con esta nueva configuración el cielo está limpio
-		if (!HayConflictos(Avion, AvionesActivos)) {
-			Resuelto = true;
-			Avion.nManeuvers = 1; // Marcamos que ha maniobrado
-			std::cout << "    [OK] Conflicto resuelto en intento " << Intento + 1
-				<< " (Tipo: " << Tipo << ", Mag: " << Magnitud << ")" << std::endl;		//ATENCION AÑADIR LAS MANIOBRAS AL HISTORICO
-		}
-		else {
-			// Si no funciona, revertimos para el siguiente intento
-			Avion.v = VOriginal;
-			Avion.z = ZOriginal;
-			Avion.angle = AngOriginal;
-			Intento++;
-		}
-	}
-
-	if (!Resuelto) {
-		std::cout << "    [FAIL] No se encontró maniobra segura tras " << MaxIntentos << " intentos." << std::endl;
-	}
-}
-*/
 
 void ActualizarPosicionesAviones(std::vector<Aircraft>& avionesActivos, double tSim) {
 	for (auto& avion : avionesActivos) {
